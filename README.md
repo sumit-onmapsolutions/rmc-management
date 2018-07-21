@@ -1,3 +1,0 @@
-# RMC-MANAGEMENT
-
-Hello World   
