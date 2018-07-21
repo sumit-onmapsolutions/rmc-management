@@ -2,6 +2,7 @@
 /yii
 /yii_test
 /yii_test.bat
+/codeception.yml
 
 # phpstorm project files
 .idea
@@ -19,6 +20,9 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+/documentation
+/console
+/environments
 
 # composer itself is not needed
 composer.phar
