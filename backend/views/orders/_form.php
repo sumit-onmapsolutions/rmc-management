@@ -14,8 +14,7 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(
-        ArrayHelper::map(\common\models\User::find()->where(['user_level'=>6])->asArray()->all(), 'id', 'username')); ?>
+    <?= $form->field($model, 'user_id')->textInput(['readonly' => true, 'value' => Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->last_name]) ?>    
 
     <?= $form->field($model, 'date')->widget(
         DatePicker::className(), [
@@ -35,20 +34,34 @@ use yii\helpers\ArrayHelper;
         ['prompt'=>'Select Customer']); 
     ?>
 
+    <?= 
+        $form->field($model, 'cid')->dropDownList(
+        ArrayHelper::map(\common\models\CustomerIds::find()->all(), 'id', 'CID'),  
+        ['prompt'=>'Select ID']); 
+    ?>
+
+    <?= $form->field($model, 'billing_address')->textarea() ?>        
+
+    <?= $form->field($model, 'gst_details')->textInput() ?>        
+
+    <?= $form->field($model, 'city')->textInput() ?>        
+
     <?= $form->field($model, 'project_manager_id')->dropDownList(
-        ArrayHelper::map(\common\models\User::find()->where(['user_level'=>4])->asArray()->all(), 'id', 'username'),  //   1.id -primary key table user  2.username- is use to display
+        ArrayHelper::map(\common\models\User::find()->where(['user_level'=>4])->asArray()->all(), 'id', 'username'),  
 	['prompt'=>'Select Project Manager']); ?>
 
 
+    <?= $form->field($model, 'site_location')->textInput() ?>        
+
     <?= 
         $form->field($model, 'site_id')->dropDownList(
-        ArrayHelper::map(\common\models\Sites::find()->all(), 'id', 'name'),  //   1.id -primary key table user  2.username- is use to display
+        ArrayHelper::map(\common\models\Sites::find()->all(), 'id', 'name'),  
         ['prompt'=>'Select Site']); 
     ?>
 
     <?= 
         $form->field($model, 'section_id')->dropDownList(
-        ArrayHelper::map(\common\models\Sections::find()->all(), 'id', 'section_name'),  //   1.id -primary key table user  2.username- is use to display
+        ArrayHelper::map(\common\models\Sections::find()->all(), 'id', 'section_name'),  
         ['prompt'=>'Select Section']); 
     ?>
 
@@ -66,7 +79,11 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'confirmed_time')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'plant_id')->textInput(['maxlength' => true]) ?>
+    <?= 
+        $form->field($model, 'plant_id')->dropDownList(
+        ArrayHelper::map(\common\models\Plants::find()->all(), 'id', 'plant_name'),  
+        ['prompt'=>'Select Plant Name']); 
+    ?>
 
     <?= $form->field($model, 'additional_if_any')->textInput(['maxlength' => true]) ?>
 
