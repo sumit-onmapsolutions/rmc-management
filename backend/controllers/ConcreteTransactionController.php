@@ -3,18 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Orders;
-use common\models\OrdersSearch;
+use common\models\ConcreteTransaction;
+use common\models\ConcreteTransactionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\ConcreteTransaction;
 
 /**
- * OrdersController implements the CRUD actions for Orders model.
+ * ConcreteTransactionController implements the CRUD actions for ConcreteTransaction model.
  */
-class OrdersController extends Controller
+class ConcreteTransactionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,39 +20,22 @@ class OrdersController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::classname(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST']
-                    // 'lists' => ['POST'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
-    public function beforeAction($event){
-        if(Yii::$app->Permission->getPermission())
-            return parent::beforeAction($event);
-        else
-            $this->redirect(['site/permission']);
-    }
-
     /**
-     * Lists all Orders models.
+     * Lists all ConcreteTransaction models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new OrdersSearch();
+        $searchModel = new ConcreteTransactionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +45,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Displays a single Orders model.
+     * Displays a single ConcreteTransaction model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -77,30 +58,25 @@ class OrdersController extends Controller
     }
 
     /**
-     * Creates a new Orders model.
+     * Creates a new ConcreteTransaction model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Orders();
-        $modelConcreteTransaction = new ConcreteTransaction();
+        $model = new ConcreteTransaction();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
-        {
-            $modelConcreteTransaction->order_id = $model->id;
-            $modelConcreteTransaction->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'modelConcreteTransaction' => $modelConcreteTransaction,
         ]);
     }
 
     /**
-     * Updates an existing Orders model.
+     * Updates an existing ConcreteTransaction model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -120,7 +96,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Deletes an existing Orders model.
+     * Deletes an existing ConcreteTransaction model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -134,52 +110,18 @@ class OrdersController extends Controller
     }
 
     /**
-     * Finds the Orders model based on its primary key value.
+     * Finds the ConcreteTransaction model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Orders the loaded model
+     * @return ConcreteTransaction the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Orders::findOne($id)) !== null) {
+        if (($model = ConcreteTransaction::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-
-    public function actionLists($id)
-    {
-
-        $posts = \common\models\CustomerIds::find()
-				->where(['customer_id' => $id])
-				->all();
-				
-		if (!empty($posts)) {
-			foreach($posts as $post) {
-				echo "<option value='".$post->id."'>".$post->CID."</option>";
-			}
-		} else {
-			echo "<option>No Customer Id's found</option>";
-		}
-    }
-
-    public function actionListConcrete($id)
-    {
-
-        $posts = \common\models\CustomerIds::find()
-				->where(['customer_id' => $id])
-				->all();
-				
-		if (!empty($posts)) {
-			foreach($posts as $post) {
-				echo "<option value='".$post->id."'>".$post->CID."</option>";
-			}
-		} else {
-			echo "<option>No Customer Id's found</option>";
-		}
-    }
-
 }
