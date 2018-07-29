@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
+            'unit',
             [
                 'attribute'=>'active',
                 'header'=>'Status',

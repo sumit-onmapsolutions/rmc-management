@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Projects;
+use common\models\ConcreteTransaction;
 
 /**
- * ProjectsSearch represents the model behind the search form of `common\models\Projects`.
+ * ConcreteTransactionSearch represents the model behind the search form of `common\models\ConcreteTransaction`.
  */
-class ProjectsSearch extends Projects
+class ConcreteTransactionSearch extends ConcreteTransaction
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class ProjectsSearch extends Projects
     public function rules()
     {
         return [
-            [['id', 'project_head_id', 'project_manager_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['name', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'order_id', 'parent_concrete_id', 'sub_concrete_id', 'quantity', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['unit', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProjectsSearch extends Projects
      */
     public function search($params)
     {
-        $query = Projects::find();
+        $query = ConcreteTransaction::find();
 
         // add conditions that should always apply here
 
@@ -60,8 +60,10 @@ class ProjectsSearch extends Projects
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'project_head_id' => $this->project_head_id,
-            'project_manager_id' => $this->project_manager_id,
+            'order_id' => $this->order_id,
+            'parent_concrete_id' => $this->parent_concrete_id,
+            'sub_concrete_id' => $this->sub_concrete_id,
+            'quantity' => $this->quantity,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,
@@ -69,7 +71,7 @@ class ProjectsSearch extends Projects
             'is_deleted' => $this->is_deleted,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'unit', $this->unit]);
 
         return $dataProvider;
     }

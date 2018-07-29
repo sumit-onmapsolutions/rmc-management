@@ -3,16 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Projects;
-use common\models\ProjectsSearch;
+use common\models\SectionEngineers;
+use common\models\SectionEngineersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
- * ProjectsController implements the CRUD actions for Projects model.
+ * SectionEngineersController implements the CRUD actions for SectionEngineers model.
  */
-class ProjectsController extends Controller
+class SectionEngineersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -20,6 +21,15 @@ class ProjectsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::classname(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@']
+                    ]
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -29,13 +39,20 @@ class ProjectsController extends Controller
         ];
     }
 
+    public function beforeAction($event){
+        if(Yii::$app->Permission->getPermission())
+            return parent::beforeAction($event);
+        else
+            $this->redirect(['site/permission']);
+    }
+
     /**
-     * Lists all Projects models.
+     * Lists all SectionEngineers models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectsSearch();
+        $searchModel = new SectionEngineersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +62,7 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Displays a single Projects model.
+     * Displays a single SectionEngineers model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,15 +75,18 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Creates a new Projects model.
+     * Creates a new SectionEngineers model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Projects();
+        $model = new SectionEngineers();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) 
+        {
+            $model->section_incharge_id = Yii::$app->user->identity->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -76,7 +96,7 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Updates an existing Projects model.
+     * Updates an existing SectionEngineers model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -96,7 +116,7 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Deletes an existing Projects model.
+     * Deletes an existing SectionEngineers model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -110,15 +130,15 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Finds the Projects model based on its primary key value.
+     * Finds the SectionEngineers model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Projects the loaded model
+     * @return SectionEngineers the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Projects::findOne($id)) !== null) {
+        if (($model = SectionEngineers::findOne($id)) !== null) {
             return $model;
         }
 

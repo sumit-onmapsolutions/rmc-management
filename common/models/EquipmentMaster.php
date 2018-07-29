@@ -32,7 +32,7 @@ class EquipmentMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status'], 'required'], // , 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
+            [['name', 'status','unit'], 'required'], // , 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['name', 'status'], 'string', 'max' => 255],
@@ -47,6 +47,7 @@ class EquipmentMaster extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'unit' => 'Unit',
             'status' => 'Status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

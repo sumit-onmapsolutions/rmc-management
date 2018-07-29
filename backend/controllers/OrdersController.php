@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\ConcreteTransaction;
+use common\models\EquipmentTransaction;
 
 /**
  * OrdersController implements the CRUD actions for Orders model.
@@ -84,18 +85,25 @@ class OrdersController extends Controller
     public function actionCreate()
     {
         $model = new Orders();
+        $model->date = date('Y-m-d');
         $modelConcreteTransaction = new ConcreteTransaction();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        $modelEquipmentTransaction = new EquipmentTransaction();
+        if ($model->load(Yii::$app->request->post()))
         {
+            $model->user_id=Yii::$app->user->identity->id;
+            $model->save();
             $modelConcreteTransaction->order_id = $model->id;
-            $modelConcreteTransaction->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            $modelEquipmentTransaction->order_id = $model->id;
+            if($modelConcreteTransaction->load(Yii::$app->request->post()) && $modelConcreteTransaction->save() && $modelEquipmentTransaction->load(Yii::$app->request->post()) && $modelEquipmentTransaction->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
             'modelConcreteTransaction' => $modelConcreteTransaction,
+            'modelEquipmentTransaction' => $modelEquipmentTransaction
         ]);
     }
 
@@ -109,13 +117,22 @@ class OrdersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        // print_r($model);
+        // exit;
+        $modelConcreteTransaction = new ConcreteTransaction();
+        $concreteData = $modelConcreteTransaction->find()->where([ 'order_id' => $id ])->one();
+        $modelEquipmentTransaction = new EquipmentTransaction();
+        $equipmentData = $modelEquipmentTransaction->find()->where([ 'order_id' => $id ])->one();
+        // print_r($equipmentData);
+        // exit;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelConcreteTransaction' => $concreteData,
+            'modelEquipmentTransaction' => $equipmentData
         ]);
     }
 
@@ -166,20 +183,23 @@ class OrdersController extends Controller
 		}
     }
 
-    public function actionListConcrete($id)
+    public function actionListconcrete($id)
     {
 
-        $posts = \common\models\CustomerIds::find()
-				->where(['customer_id' => $id])
+        $posts = \common\models\ConcreteMaster::find()
+                ->where(['is_parent' => $id])
+                ->andWhere(['!=','is_parent',0])
 				->all();
 				
 		if (!empty($posts)) {
 			foreach($posts as $post) {
-				echo "<option value='".$post->id."'>".$post->CID."</option>";
+				echo "<option value='".$post->id."'>".$post->value."</option>";
 			}
 		} else {
-			echo "<option>No Customer Id's found</option>";
+			echo "<option value=''>No Sub Concrete found</option>";
 		}
     }
+
+    
 
 }

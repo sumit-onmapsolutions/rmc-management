@@ -19,7 +19,7 @@ class CustomersSearch extends Customers
     {
         return [
             [['id', 'contact_no', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['name', 'customer_id', 'email_id', 'city', 'created_at', 'updated_at'], 'safe'],
+            [['name','email_id', 'city', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -69,7 +69,6 @@ class CustomersSearch extends Customers
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'customer_id', $this->customer_id])
             ->andFilterWhere(['like', 'email_id', $this->email_id])
             ->andFilterWhere(['like', 'city', $this->city]);
 

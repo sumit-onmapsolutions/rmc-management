@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Orders;
+use common\models\Sections;
 
 /**
  * OrdersSearch represents the model behind the search form of `common\models\Orders`.
@@ -18,7 +19,7 @@ class OrdersSearch extends Orders
     public function rules()
     {
         return [
-            [['id', 'user_id', 'customer_id', 'cid', 'project_manager_id', 'site_id', 'section_id', 'qty', 'unit', 'isPumping', 'isDumping', 'plant_id', 'status', 'isSIApproved', 'isPMApproved', 'isAdminApproved', 'isdeleted', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'user_id', 'customer_id', 'cid', 'project_manager_id', 'site_id', 'section_id', 'isPumping', 'isDumping', 'plant_id', 'status', 'isSIApproved', 'isPMApproved', 'isAdminApproved', 'isdeleted', 'created_by', 'updated_by'], 'integer'],
             [['date', 'vehicle_interval', 'tentetive_time', 'confirmed_time', 'additional_if_any', 'reason', 'mix_type', 'mix_no', 'vehicle_no', 'name_of_driver', 'name_of_helper', 'plant_dispatch_time', 'slump_at_plant_mm', 'site_reach_time', 'slump_at_site_reach_time', 'any_admixture_addedatsite', 'any_water_added_at_site', 'after_addition_of_water', 'admixture_slumpmm', 'pour_start_time', 'pour_completed_time', 'plant_return_time', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -41,8 +42,28 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+       // for engineers
+        if(Yii::$app->user->identity->user_level == 6)
+        {
+            $query = Orders::find()->where(['user_id' => Yii::$app->user->identity->id]);      
+        }
 
+        // for section incharge
+        else if(Yii::$app->user->identity->user_level == 4)
+        {
+            $rows = Sections::find()->select(['id'])->where(['section_incharge_id' => Yii::$app->user->identity->id])->asArray()->all();
+            $tempArray = array();
+            foreach ($rows as $key=>$value) {
+                $tempArray[$key] = $value['id'];
+            }
+            $query = Orders::find()->where(['section_id' => $tempArray]);
+        }
+
+        else 
+        {
+            $query = Orders::find();
+        }
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -64,11 +85,13 @@ class OrdersSearch extends Orders
             'date' => $this->date,
             'customer_id' => $this->customer_id,
             'cid' => $this->cid,
-            'project_manager_id' => $this->project_manager_id,
+            'billing_address' => $this->billing_address,
+            'gst_details' => $this->gst_details,
+            'city' => $this->city,
+            'project_manager_id' => $this->project_manager_id, 
+            'site_location' => $this->site_location,
             'site_id' => $this->site_id,
             'section_id' => $this->section_id,
-            'qty' => $this->qty,
-            'unit' => $this->unit,
             'isPumping' => $this->isPumping,
             'isDumping' => $this->isDumping,
             'plant_id' => $this->plant_id,

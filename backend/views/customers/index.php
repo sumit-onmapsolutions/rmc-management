@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
-            'customer_id',
             'contact_no',
             'email_id:email',
             //'city',

@@ -33,8 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'ProjectManager',
             'Site',
             'Section',
-            //'qty',
-            //'unit',
             //'isPumping',
             //'isDumping',
             //'vehicle_interval',

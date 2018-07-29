@@ -31,10 +31,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'section_id') ?>
 
-    <?php // echo $form->field($model, 'qty') ?>
-
-    <?php // echo $form->field($model, 'unit') ?>
-
     <?php // echo $form->field($model, 'isPumping') ?>
 
     <?php // echo $form->field($model, 'isDumping') ?>

@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ProjectsSearch */
+/* @var $searchModel common\models\SectionEngineersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Projects';
+$this->title = 'Section Engineers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="projects-index">
+<div class="section-engineers-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Projects', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Section Engineers', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'name',
-            'project_head_id',
-            'project_manager_id',
+            'Section',
+            'SectionIncharge',
+            'Engineer',
             //'created_at',
             //'created_by',
             //'updated_at',

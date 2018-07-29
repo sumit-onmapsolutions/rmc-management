@@ -45,20 +45,25 @@ class ModulesPermission extends Component
         $actions['update'] = 'save';
         $actions['delete'] = 'remove';
         if(isset(Yii::$app->user->identity)){
-            $role_id = Yii::$app->user->identity->user_level;    	
-            $action = $actions[Yii::$app->controller->action->id];
-            $controller = Yii::$app->controller->id;
+            if(isset($actions[Yii::$app->controller->action->id])){
+                $role_id = Yii::$app->user->identity->user_level;    	
+                $action = $actions[Yii::$app->controller->action->id];
+                $controller = Yii::$app->controller->id;
+    
+                $permission = RoleModulePermission::find()
+                                     ->select($action)
+                                     ->join('LEFT JOIN', 'modules_list AS ML', 'ML.module_id = role_module_permission.module_id')
+                                     ->where('role_id = :role_id', [':role_id' => $role_id])
+                                     ->andWhere($action.' = :'.$action, [':'.$action => 1])
+                                     ->andWhere('controller = :controller', [':controller' => $controller])
+                                     ->one();
+                
+                
+                return $permission[$action] ? true : false;
+            }else{
+                return true;
+            }
 
-            $permission = RoleModulePermission::find()
-                                 ->select($action)
-                                 ->join('LEFT JOIN', 'modules_list AS ML', 'ML.module_id = role_module_permission.module_id')
-                                 ->where('role_id = :role_id', [':role_id' => $role_id])
-                                 ->andWhere($action.' = :'.$action, [':'.$action => 1])
-                                 ->andWhere('controller = :controller', [':controller' => $controller])
-                                 ->one();
-            
-            
-            return $permission[$action] ? true : false;
         }else{
             return  false;
         }

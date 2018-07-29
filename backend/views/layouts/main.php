@@ -46,7 +46,7 @@ AppAsset::register($this);
 						 </div>
 						 <div class="header-right">
 						 <div class="profile_details_left"><!--notifications of menu start -->
-								<ul class="nofitications-dropdown">
+								<!-- <ul class="nofitications-dropdown">
 									<li class="dropdown head-dpdn">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">1</span></a>
 										<ul class="dropdown-menu">
@@ -117,7 +117,7 @@ AppAsset::register($this);
 											</li>
 										</ul>
 									</li>	
-								</ul>
+								</ul> -->
 								<div class="clearfix"> </div>
 							</div>
 							<!--notification menu end -->
