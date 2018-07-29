@@ -9,7 +9,6 @@ use Yii;
  *
  * @property string $id
  * @property string $name
- * @property string $customer_id
  * @property int $contact_no
  * @property string $email_id
  * @property string $city
@@ -35,7 +34,7 @@ class Customers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'customer_id','email_id', 'city'], 'required'], //,'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
+            [['name','email_id', 'city'], 'required'], //,'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
             [['contact_no', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'city'], 'string', 'max' => 255],
@@ -51,7 +50,6 @@ class Customers extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'customer_id' => 'ID',
             'contact_no' => 'Contact No',
             'email_id' => 'Email',
             'city' => 'City',

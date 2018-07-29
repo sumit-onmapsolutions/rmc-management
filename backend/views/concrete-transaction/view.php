@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Projects */
+/* @var $model common\models\ConcreteTransaction */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Concrete Transactions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="projects-view">
+<div class="concrete-transaction-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,15 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'id',
-            'name',
-            'ProjectHead',
-            'ProjectManager',
-            //'created_at',
-            //'created_by',
-            //'updated_at',
-            //'updated_by',
-            //'is_deleted',
+            'id',
+            'order_id',
+            'parent_concrete_id',
+            'sub_concrete_id',
+            'quantity',
+            'unit',
+            'created_at',
+            'created_by',
+            'updated_at',
+            'updated_by',
+            'is_deleted',
         ],
     ]) ?>
 

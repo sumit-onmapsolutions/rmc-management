@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ProjectsSearch */
+/* @var $model common\models\ConcreteTransactionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="projects-search">
+<div class="concrete-transaction-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,13 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'order_id') ?>
 
-    <?= $form->field($model, 'project_head_id') ?>
+    <?= $form->field($model, 'parent_concrete_id') ?>
 
-    <?= $form->field($model, 'project_manager_id') ?>
+    <?= $form->field($model, 'sub_concrete_id') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'quantity') ?>
+
+    <?php // echo $form->field($model, 'unit') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'created_by') ?>
 

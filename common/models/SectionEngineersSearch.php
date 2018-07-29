@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Projects;
+use common\models\SectionEngineers;
 
 /**
- * ProjectsSearch represents the model behind the search form of `common\models\Projects`.
+ * SectionEngineersSearch represents the model behind the search form of `common\models\SectionEngineers`.
  */
-class ProjectsSearch extends Projects
+class SectionEngineersSearch extends SectionEngineers
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class ProjectsSearch extends Projects
     public function rules()
     {
         return [
-            [['id', 'project_head_id', 'project_manager_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['name', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'engineer_id', 'section_id', 'section_incharge_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProjectsSearch extends Projects
      */
     public function search($params)
     {
-        $query = Projects::find();
+        $query = SectionEngineers::find();
 
         // add conditions that should always apply here
 
@@ -60,16 +60,15 @@ class ProjectsSearch extends Projects
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'project_head_id' => $this->project_head_id,
-            'project_manager_id' => $this->project_manager_id,
+            'engineer_id' => $this->engineer_id,
+            'section_id' => $this->section_id,
+            'section_incharge_id' => $this->section_incharge_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
             'is_deleted' => $this->is_deleted,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

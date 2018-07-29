@@ -32,12 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'Engineer',
             'date',
             'Customer',
-            'cid',
+            'Customerid',
             'ProjectManager',
             'Site',
             'Section',
-            'qty',
-            'unit',
             [
                 'attribute'=>'Pumping',
                 'header'=>'Pumping',

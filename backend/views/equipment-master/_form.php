@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'unit')->textInput() ?>
+
     <?= $form->field($model, 'status')->dropDownList(['1' => 'Active', '0' => 'Deactive'],['prompt'=>'Select Status']); ?>
 
     <?php // $form->field($model, 'created_at')->textInput() ?>
