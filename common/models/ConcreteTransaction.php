@@ -62,4 +62,16 @@ class ConcreteTransaction extends \yii\db\ActiveRecord
             'is_deleted' => 'Is Deleted',
         ];
     }
+
+    // public static function getConcreteName() {
+    //     // ...
+    //     return $this->hasOne(ConcreteMaster::className(),['id' => 'is_parent'])->select('value')->scalar();
+    // }
+
+    // public static function getSubConcreteName() {
+    //     // ...
+    //     return $this->hasOne(ConcreteMaster::className(),['id' => 'is_parent'])->select('value')->scalar();
+    // }
+
+    
 }

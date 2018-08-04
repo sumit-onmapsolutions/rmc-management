@@ -11,9 +11,42 @@ use yii\helpers\ArrayHelper;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+body, html {
+    height: 100%;
+    
+    margin: 0;
+}
 
+.signup{
+    /* background-color: transparent; */
+    background: rgba(0, 0, 0, 0.5);
+
+}
+
+.bg {
+    /* The image used */
+    background-image: url("images/JKI_4429.jpg");
+
+    /* Full height */
+    height: 215%; 
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
 <!--inner block start here-->
-<div class="signup-page-main">
+
+<body class="bg">
+<img src = "images/ISO with LOGO.jpg" style="text-align: left" height="150px;" width="150px;"/>
+<img src = "images/eagle1.jpeg" style="text-align: right" height="150px;" width="150px;"/>
+<center><h1 style="font-size:60px;"><strong><font face="Consolas" color="white">J.Kumar Infraprojects ltd.</font></strong></h1></center>
+<center><h1 style="font-size:40px; text-align: right;"><font face="Forte" color="white">We Dream...So We Achieve...</font></h1></center>
+
+
+<div class="signup-page">
      <div class="signup-main">  	
     	<div class="signup-head">
 				<h1>Sign Up</h1>
@@ -48,4 +81,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+</body>
 <!--inner block end here-->

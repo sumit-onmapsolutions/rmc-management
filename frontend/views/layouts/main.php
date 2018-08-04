@@ -22,6 +22,33 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+<style>
+.navbar{
+    background-color: #cc0000;
+    color: white;
+}
+</style>
+
+<style>
+    .footer {
+           position: fixed;
+           left: 0;
+           bottom: 0;
+           height: 40px;
+           width: 100%;
+           background-color: #cc0000;
+           color: white;
+           text-align: center;
+        }   
+
+        p {
+            padding: 10px;
+        }
+
+</style>
+
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -29,20 +56,21 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+      //  'brandLabel' => Yii::$app->name,
+      //  'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-fixed-top ',
+            'padding-bottom' => '2px',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+     //   ['label' => 'Home', 'url' => ['/site/index']],
+      //  ['label' => 'About', 'url' => ['/site/about']],
+      //  ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup'], 'options' => ['style' => 'background-color: white; ']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login'], 'options' => ['style' => 'background-color: white;']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -69,13 +97,17 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<!-- <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <= Html::encode(Yii::$app->name) ?> <= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><= Yii::powered() ?></p>
     </div>
-</footer>
+</footer> -->
+
+<div class="footer">
+    <p>Powered by ON MAP SOLUTIONS, PUNE</p>
+</div>
 
 <?php $this->endBody() ?>
 </body>

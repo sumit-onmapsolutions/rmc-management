@@ -134,6 +134,7 @@ a:hover {
   background-color:#202121;
   color: #aaabae;
   z-index: 999;
+  overflow-y: scroll;  /*modified */
 }
 #menu {
   list-style: none;
@@ -1724,22 +1725,28 @@ p.grid1 {
 .login-main {
     width: 40%;
     margin: 0 auto;
-    background: #FFFFFF;
+    
     background-size: cover;
     min-height: 400px;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
 }
 .login-page {
     padding: 6.5em 0em;
+    background-image: url("../../images/delhi_metro.jpg");
+    background-position: fill;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .login-head {
-    background: url(../images/login.jpg)no-repeat;
+   
     background-size: cover;
     min-height: 150px;
 }
 .login-head h1 {
     font-size:3em;
-     color:#FFF;
+    color:#FFF;
     padding: 1em 0em 0em 0em;
     text-align: center;
     font-family: 'Carrois Gothic', sans-serif;
@@ -1928,13 +1935,13 @@ p.grid1 {
 .signup-main {
     width: 40%;
     margin: 0 auto;
-    background: #FFFFFF;
+    
     background-size: cover;
     min-height: 400px;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
 }
 .signup-head {
-    background: url(../images/login.jpg)no-repeat;
+   
     background-size: cover;
     min-height: 150px;
 }
@@ -3619,7 +3626,7 @@ canvas#radar {
     padding: 2em 1em;
 }
 .climate-grid2 {
-    background: url(../images/shoppy.jpg)no-repeat center;
+   
     min-height: 290px;
     background-size: cover;   
     margin: 2em 0em 0em 0em;

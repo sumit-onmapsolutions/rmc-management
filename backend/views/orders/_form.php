@@ -27,7 +27,7 @@ use yii\helpers\Url;
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd'
                     ]
-                ]);
+                    ]);
             ?>        
         </div>
     </div>
@@ -192,7 +192,10 @@ use yii\helpers\Url;
             <?= $form->field($model, 'additional_if_any')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
-    <?php if(Yii::$app->user->identity->user_level==5) { ?>
+    <?php
+        $checkFields = ( isset($model->mix_type) ? true : false );
+    ?>
+    <?php if($checkFields || Yii::$app->user->identity->user_level==5) { ?>
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'status')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Staus']); ?>
@@ -201,83 +204,83 @@ use yii\helpers\Url;
             <?= $form->field($model, 'reason')->textarea(['rows' => 2]) ?>
         </div>
     </div>
+    <!--<div class="row">
+        <div class="col-md-6">
+            <?php // $form->field($model, 'isSIApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>
+        </div>
+        <div class="col-md-6">
+            <?php // $form->field($model, 'isPMApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>                        
+        </div>
+        <div class="col-md-6">
+        <?php // $form->field($model, 'isAdminApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>
+        </div>
+    </div>-->
+
     <div class="row">
-        <div class="col-md-6">
-            <?= $form->field($model, 'isSIApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'isPMApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>                        
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-           <?= $form->field($model, 'isAdminApproved')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Option']); ?>
-        </div>
         <div class="col-md-6">
             <?= $form->field($model, 'mix_type')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'mix_no')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'vehicle_no')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'name_of_driver')->textInput(['maxlength' => true]) ?>            
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'name_of_helper')->textInput(['maxlength' => true]) ?>            
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'plant_dispatch_time')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'slump_at_plant_mm')->textInput(['maxlength' => true]) ?>                         
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'site_reach_time')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'slump_at_site_reach_time')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'any_admixture_addedatsite')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'any_water_added_at_site')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'after_addition_of_water')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'admixture_slumpmm')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'pour_start_time')->textInput(['maxlength' => true]) ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'pour_completed_time')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'plant_return_time')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
+    
 
     <?php } ?>    
     <?php // $form->field($model, 'isdeleted')->textInput() ?>
@@ -292,7 +295,7 @@ use yii\helpers\Url;
 
     <div class="form-group">
         <?php 
-            if(Yii::$app->user->identity->user_level==6) 
+            if(Yii::$app->user->identity->user_level==6 || Yii::$app->user->identity->user_level==5) 
             { ?>
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
             <?php }

@@ -130,9 +130,11 @@ class OrdersController extends Controller
         if(Yii::$app->user->identity->user_level==7)
         {
             $model->isPHApproved = "1";   // Project Head Approved   
+            $model->isAdminApproved = "1";   // Master Approved   
         }
         if(Yii::$app->user->identity->user_level==2)
         {
+            $model->isPHApproved = "1";   // Project Head Approved   
             $model->isAdminApproved = "1";   // Master Approved   
         }
         $modelConcreteTransaction = new ConcreteTransaction();

@@ -160,6 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pour_start_time',
             'pour_completed_time',
             'plant_return_time',
+            // 'Concrete'
             //'isdeleted',
             //'created_by',
             //'created_at',
