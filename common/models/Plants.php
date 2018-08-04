@@ -33,8 +33,8 @@ class Plants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plant_name', 'plant_manager_id','status'], 'required'], //, 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
-            [['plant_manager_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['plant_name','status'], 'required'], //, 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
+            [['created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['plant_name'], 'string', 'max' => 255],
         ];
@@ -48,7 +48,6 @@ class Plants extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'plant_name' => 'Plant Name',
-            'plant_manager_id' => 'Plant Manager',
             'status' => 'Status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -58,8 +57,5 @@ class Plants extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProjectManager()
-    {
-        return $this->hasOne(User::className(), ['id' => 'plant_manager_id'])->select('username')->scalar();
-    }
+    
 }

@@ -15,11 +15,13 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'plant_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'plant_manager_id')->dropDownList(
+    <?= 
+        $form->field($plantManagersmodel, 'plant_manager_id')->dropDownList(
         ArrayHelper::map(\common\models\User::find()->where(['user_level'=>5])->asArray()->all(), 'id', 'username'),  
-	['prompt'=>'Select Plant Manager']); ?>
+        ['prompt'=>'Select Plant Manager']); 
+    ?>
 
-    <?= $form->field($model, 'status')->dropDownList(['1' => 'Active', '0' => 'Deactive'],['prompt'=>'Select Option']); ?>
+    <?= $form->field($model, 'status')->dropDownList(['1' => 'Active', '0' => 'Deactive']); ?>
 
     <?php // $form->field($model, 'created_at')->textInput() ?>
 

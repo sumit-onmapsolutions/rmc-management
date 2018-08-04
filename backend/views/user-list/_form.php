@@ -23,12 +23,28 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'status')->dropDownList(['10' => 'Active', '0' => 'Deactive'],['prompt'=>'Select Option']); ?>
+
     <?php 
-        $parent=ArrayHelper::map(\common\models\RoleTypes::find()->where(['is_active'=>1])->andWhere(['!=','role_id',1])->asArray()->all(), 'role_id', 'role_name');
-        echo  $form->field($model,'user_level')->dropDownList($parent,['prompt'=>'Select user level']) 
+        if(Yii::$app->user->identity->user_level == 1)
+        {
+            $parent=ArrayHelper::map(\common\models\RoleTypes::find()->asArray()->all(), 'role_id', 'role_name');
+            echo  $form->field($model,'user_level')->dropDownList($parent,['prompt'=>'Select User level']); 
+        }
+        else if(Yii::$app->user->identity->user_level == 2)
+        {
+            $parent=ArrayHelper::map(\common\models\RoleTypes::find()->asArray()->all(), 'role_id', 'role_name');
+            echo  $form->field($model,'user_level')->dropDownList($parent,['prompt'=>'Select User level']); 
+        }
+        else
+        {
+            $parent=ArrayHelper::map(\common\models\RoleTypes::find()->where(['is_active'=>1])->andWhere(['!=','role_id',1])->asArray()->all(), 'role_id', 'role_name');
+            echo  $form->field($model,'user_level')->dropDownList($parent,['prompt'=>'Select User level']); 
+        }
+        
     ?>
     
-    <?php // $form->field($model, 'password')->passwordInput() ?>
+    <?php //  $form->field($model, 'password_hash')->passwordInput() ?>
 
     <?php // $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
 

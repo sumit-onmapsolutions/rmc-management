@@ -18,7 +18,7 @@ class PlantsSearch extends Plants
     public function rules()
     {
         return [
-            [['id', 'plant_manager_id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['id', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['plant_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class PlantsSearch extends Plants
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'plant_manager_id' => $this->plant_manager_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,

@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'plant_name',
-            'ProjectManager',
             [
                 'attribute'=>'Status',
                 'header'=>'Status',

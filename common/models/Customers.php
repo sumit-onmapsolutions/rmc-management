@@ -38,7 +38,7 @@ class Customers extends \yii\db\ActiveRecord
             [['contact_no', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'city'], 'string', 'max' => 255],
-            [['customer_id', 'email_id'], 'string', 'max' => 100],
+            [['email_id'], 'string', 'max' => 100],
         ];
     }
 

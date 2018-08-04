@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\SignupForm;
+use yii\helpers\Json;
 
 /**
  * UserListController implements the CRUD actions for UserList model.
@@ -51,7 +52,7 @@ class UserListController extends Controller
      * Lists all UserList models.
      * @return mixed
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $searchModel = new UserListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -60,7 +61,62 @@ class UserListController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }*/
+
+    public function actionIndex()
+    {
+        $searchModel = new UserListSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                if (Yii::$app->request->post('hasEditable')) {
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            
+            $attribute = Yii::$app->request->post('editableAttribute');
+            $index = Yii::$app->request->post('editableIndex');
+            $userid = Yii::$app->request->post('editableKey');
+            $UserModel = UserList::findOne($userid);
+
+            $out = Json::encode(['output'=>'','message'=>'']);
+            $post = [];
+            $user = Yii::$app->request->post('UserList');
+           
+            $newValue = '';
+
+            if($attribute == 'name'){
+                $newValue =  $user[$index]["name"];
+                $UserModel->name = $newValue;
+
+            } else if ($attribute == 'status'){
+                $newValue =  $user[$index]["status"];
+               if($UserModel->status == $newValue){
+                return false;
+               }else{
+                   $UserModel->status = $newValue;
+               }
+                 
+            }
+
+            if (($newValue != '')) {
+                if($UserModel->save(false)){
+                    return ['output'=>$newValue, 'message'=>''];
+                }else{
+                    return ['output'=>$newValue, 'message'=>'Error Occured while saving','error'=>$UserModel->getErrors()];
+                }
+
+            }else{
+                return ['output'=>'failed', 'attribute'=>$attribute,'message'=>''];
+            }
+            
+          }
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
+
+
 
     /**
      * Displays a single UserList model.
@@ -106,6 +162,7 @@ class UserListController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

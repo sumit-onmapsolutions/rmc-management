@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ConcreteMaster */
+/* @var $model common\models\PlantManagers */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Concrete Masters', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Plant Managers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="concrete-master-view">
+<div class="plant-managers-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,11 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-           // 'id',
-           // 'type',
-            'value',
-            'ParentConcrete',
-          //  'is_deleted',
+            'id',
+            'plant_id',
+            'plant_manager_id',
+            'created_at',
+            'created_by',
+            'updated_at',
+            'updated_by',
+            'is_deleted',
         ],
     ]) ?>
 

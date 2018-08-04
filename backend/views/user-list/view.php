@@ -28,20 +28,36 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'first_name',
             'last_name',
             'phone_number',
-            'username',
+            'UserLevel',
             'email:email',
-            'password_hash',
-            'auth_key',
-            'password_reset_token',
-            'user_image',
+            //'password_hash',
+            //'auth_key',
+            //'password_reset_token',
+            //'user_image',
             'user_level',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute'=>'status',
+                'header'=>'Status',
+                'filter' => ['10'=>'Active', '0'=>'Deactive'],
+                'format'=>'raw',    
+                'value' => function($model)
+                {   
+                    if($model->status == '10')
+                    {
+                        return '<p class="text-success">Active</p>';
+                    }
+                    else
+                    {   
+                        return '<p class="text-danger">Deactive</p>';
+                    }
+                },
+            ],
+            //'created_at',
+            //'updated_at',
         ],
     ]) ?>
 
