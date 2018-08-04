@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\models\ConcreteMaster;
 /**
  * This is the model class for table "orders".
  *
@@ -113,13 +113,13 @@ class Orders extends \yii\db\ActiveRecord
             'name_of_driver' => 'Name Of Driver',
             'name_of_helper' => 'Name Of Helper',
             'plant_dispatch_time' => 'Plant Dispatch Time',
-            'slump_at_plant_mm' => 'Slump At Plant Mm',
+            'slump_at_plant_mm' => 'Slump At Plant MM',
             'site_reach_time' => 'Site Reach Time',
             'slump_at_site_reach_time' => 'Slump At Site Reach Time',
-            'any_admixture_addedatsite' => 'Any Admixture Addedatsite',
+            'any_admixture_addedatsite' => 'Any Admixture Added at site',
             'any_water_added_at_site' => 'Any Water Added At Site',
             'after_addition_of_water' => 'After Addition Of Water',
-            'admixture_slumpmm' => 'Admixture Slumpmm',
+            'admixture_slumpmm' => 'Admixture Slump MM',
             'pour_start_time' => 'Pour Start Time',
             'pour_completed_time' => 'Pour Completed Time',
             'plant_return_time' => 'Plant Return Time',
@@ -159,6 +159,26 @@ class Orders extends \yii\db\ActiveRecord
     public function getCustomerid()
     {
         return $this->hasOne(CustomerIds::className(),['id' => 'cid'])->select('CID')->scalar();
+    }
+
+    public function getConcrete()
+    {
+        $parent_id = $this->hasOne(ConcreteTransaction::className(),['order_id' => 'id'])->select('parent_concrete_id')->scalar();
+        // echo $parent_id;
+        // exit;
+        $concreteMaster = new ConcreteMaster();
+        $concreteName =  $concreteMaster->find()->select('value')->where(['id' => $parent_id])->one();
+        return $concreteName;
+    }
+
+    public function getSubConcrete()
+    {
+        return $this->hasOne(ConcreteTransaction::className(),['id' => 'cid'])->select('CID')->scalar();
+    }
+
+    public function getConcreteQuantity()
+    {
+        return $this->hasOne(ConcreteTransaction::className(),['id' => 'cid'])->select('CID')->scalar();
     }
     
 }

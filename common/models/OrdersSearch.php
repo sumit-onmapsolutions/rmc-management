@@ -68,33 +68,33 @@ class OrdersSearch extends Orders
         }
 
         // for project head
-        else if(Yii::$app->user->identity->user_level == 7)
-        {
-            $rows = Projects::find()->select(['project_manager_id'])->where(['project_head_id' => Yii::$app->user->identity->id])->asArray()->all();
-            $tempArray = array();
-            foreach ($rows as $key=>$value) {
-                $tempArray[$key] = $value['project_manager_id'];
-            }
-            $query = Orders::find()->where(['project_manager_id' => $tempArray])->andWhere(['isPMApproved'=>1]);
-        }
+        // else if(Yii::$app->user->identity->user_level == 7)
+        // {
+        //     $rows = Projects::find()->select(['project_manager_id'])->where(['project_head_id' => Yii::$app->user->identity->id])->asArray()->all();
+        //     $tempArray = array();
+        //     foreach ($rows as $key=>$value) {
+        //         $tempArray[$key] = $value['project_manager_id'];
+        //     }
+        //     $query = Orders::find()->where(['project_manager_id' => $tempArray])->andWhere(['isPMApproved'=>1]);
+        // }
 
         // for master
-        else if(Yii::$app->user->identity->user_level == 2)
+        else if(Yii::$app->user->identity->user_level == 2 || Yii::$app->user->identity->user_level == 7)
         {
-            $query = Orders::find()->where(['isPHApproved' =>1]);      
+            $query = Orders::find();      
         }
 
         // for plant
-        /*else if(Yii::$app->user->identity->user_level == 5)
+        else if(Yii::$app->user->identity->user_level == 5)
         {
-           $rows = PlantManagers::find()->select(['plant_manager_id'])->where(['plant_id' => Yii::$app->user->identity->id])->asArray()->all();
+           $rows = PlantManagers::find()->select(['plant_id'])->where(['plant_manager_id' => Yii::$app->user->identity->id])->asArray()->all();
             $tempArray = array();
             foreach ($rows as $key=>$value) {
-                echo $tempArray[$key] = $value['plant_id'];
+                $tempArray[$key] = $value['plant_id'];
             }
         
-            $query = Orders::find()->where(['plant_id' => $tempArray])->andWhere(['isAdminApproved'=>1]);
-        }*/
+            $query = Orders::find()->where(['plant_id' => $tempArray])->andWhere(['isAdminApproved'=>1,'isPHApproved'=>1]);
+        }
 
         else   
         {
