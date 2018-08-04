@@ -1,19 +1,22 @@
 <?php
 
-namespace app\modules\apis\controllers;
+namespace frontend\modules\apis\controllers;
 
 use Yii;
-use yii\web\Controller;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 use yii\rest\ActiveController;
 use yii\web\Response;
+use yii\db\Expression;
 
-use common\models\User;
 
+use common\models\LoginForm;
 /**
  * Default controller for the `apis` module
  */
 class DefaultController extends ActiveController
 {
+
     public $modelClass = "common\models\User";
 
     public function behaviors()
@@ -34,21 +37,15 @@ class DefaultController extends ActiveController
         $behaviors['authenticator']['except'] = ['options'];
         return $behaviors;
     }
+    
+    
     /**
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex()
-    {
-        return [ "status"=> true ];
-    }
-
-    public function actionIndex2()
-    {
-        $model = new User();
-        $data = $model->find()->where(["user_level"=>4])->asArray()->all();
-        return array("status"=> true,"message"=>"Success","data"=>$data);
-    }
-
     
+     public function actionIndex()
+    {
+        return array("status"=>true,"message"=>"success");
+    }
 }
