@@ -37,6 +37,7 @@ class ConcreteTransaction extends \yii\db\ActiveRecord
         return [
             [['parent_concrete_id', 'sub_concrete_id', 'quantity'], 'required'],//, 'order_id','created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'
             [['order_id', 'parent_concrete_id', 'sub_concrete_id', 'quantity', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+           // [['unit'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
           //  [['unit'], 'string', 'max' => 255],
         ];

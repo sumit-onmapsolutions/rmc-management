@@ -3,18 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Plants;
-use common\models\PlantsSearch;
+use common\models\PlantManagers;
+use common\models\PlantManagersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\PlantManagers;
 
 /**
- * PlantsController implements the CRUD actions for Plants model.
+ * PlantManagersController implements the CRUD actions for PlantManagers model.
  */
-class PlantsController extends Controller
+class PlantManagersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,15 +20,6 @@ class PlantsController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::classname(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -40,21 +29,13 @@ class PlantsController extends Controller
         ];
     }
 
-    public function beforeAction($event)
-    {
-        if(Yii::$app->Permission->getPermission())
-            return parent::beforeAction($event);
-        else
-            $this->redirect(['site/permission']);
-    }
-
     /**
-     * Lists all Plants models.
+     * Lists all PlantManagers models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PlantsSearch();
+        $searchModel = new PlantManagersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +45,7 @@ class PlantsController extends Controller
     }
 
     /**
-     * Displays a single Plants model.
+     * Displays a single PlantManagers model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -77,31 +58,25 @@ class PlantsController extends Controller
     }
 
     /**
-     * Creates a new Plants model.
+     * Creates a new PlantManagers model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Plants();  
-        $plantManagersmodel = new PlantManagers();  
+        $model = new PlantManagers();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $plantManagersmodel->plant_id = $model->id;
-            if($plantManagersmodel->load(Yii::$app->request->post()) && $plantManagersmodel->save())
-            {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'plantManagersmodel' => $plantManagersmodel, 
         ]);
     }
 
     /**
-     * Updates an existing Plants model.
+     * Updates an existing PlantManagers model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -110,27 +85,18 @@ class PlantsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
-        $plantManagersmodel = new PlantManagers();  
-        $plantData = $plantManagersmodel->find()->where([ 'plant_id' => $id ])->one();
-        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if($plantManagersmodel->load(Yii::$app->request->post()) && $plantManagersmodel->save())
-            {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-        
 
         return $this->render('update', [
             'model' => $model,
-            'plantManagersmodel' => $plantData, 
         ]);
     }
 
     /**
-     * Deletes an existing Plants model.
+     * Deletes an existing PlantManagers model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -144,15 +110,15 @@ class PlantsController extends Controller
     }
 
     /**
-     * Finds the Plants model based on its primary key value.
+     * Finds the PlantManagers model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Plants the loaded model
+     * @return PlantManagers the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Plants::findOne($id)) !== null) {
+        if (($model = PlantManagers::findOne($id)) !== null) {
             return $model;
         }
 

@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
     ?>
 
     <?= $form->field($model, 'project_manager_id')->dropDownList(
-        ArrayHelper::map(\common\models\User::find()->where(['user_level'=>5])->asArray()->all(), 'id', 'username'),  
+        ArrayHelper::map(\common\models\User::find()->where(['user_level'=>3])->asArray()->all(), 'id', 'username'),  
         ['prompt'=>'Select Project Manager']); 
     ?>
 

@@ -40,7 +40,7 @@ class UserList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'phone_number', 'username', 'email', 'password_hash', 'auth_key', 'password_reset_token', 'user_image', 'created_at', 'updated_at'], 'required'],
+            [['first_name', 'last_name', 'phone_number', 'username', 'email','status'], 'required'], //,'password_hash', 'auth_key', 'password_reset_token', 'user_image', 'created_at', 'updated_at'
             [['user_level', 'status', 'created_at', 'updated_at'], 'integer'],
             [['first_name', 'last_name'], 'string', 'max' => 250],
             [['phone_number'], 'string', 'max' => 30],
@@ -62,9 +62,9 @@ class UserList extends \yii\db\ActiveRecord
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'phone_number' => 'Phone Number',
-            'username' => 'Username',
-            'email' => 'Email',
-            'password_hash' => 'Password Hash',
+            'username' => 'User Name',
+            'email' => 'Email Address',
+            'password_hash' => 'Password',
             'auth_key' => 'Auth Key',
             'password_reset_token' => 'Password Reset Token',
             'user_image' => 'User Image',
@@ -78,8 +78,9 @@ class UserList extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    
     public function getUserLevel()
     {
-        return $this->hasOne(RoleTypes::className(), ['role_id' => 'user_level']);
+        return $this->hasOne(RoleTypes::className(),['role_id' => 'user_level'])->select('role_name')->scalar();
     }
 }

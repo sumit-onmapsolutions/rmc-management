@@ -7,6 +7,8 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Orders;
 use common\models\Sections;
+use common\models\Projects;
+use common\models\PlantManagers;
 
 /**
  * OrdersSearch represents the model behind the search form of `common\models\Orders`.
@@ -59,7 +61,42 @@ class OrdersSearch extends Orders
             $query = Orders::find()->where(['section_id' => $tempArray]);
         }
 
-        else 
+        // for project manager
+        else if(Yii::$app->user->identity->user_level == 3)
+        {
+            $query = Orders::find()->where(['project_manager_id' => Yii::$app->user->identity->id])->andWhere(['isSIApproved'=>1]);      
+        }
+
+        // for project head
+        else if(Yii::$app->user->identity->user_level == 7)
+        {
+            $rows = Projects::find()->select(['project_manager_id'])->where(['project_head_id' => Yii::$app->user->identity->id])->asArray()->all();
+            $tempArray = array();
+            foreach ($rows as $key=>$value) {
+                $tempArray[$key] = $value['project_manager_id'];
+            }
+            $query = Orders::find()->where(['project_manager_id' => $tempArray])->andWhere(['isPMApproved'=>1]);
+        }
+
+        // for master
+        else if(Yii::$app->user->identity->user_level == 2)
+        {
+            $query = Orders::find()->where(['isPHApproved' =>1]);      
+        }
+
+        // for plant
+        /*else if(Yii::$app->user->identity->user_level == 5)
+        {
+           $rows = PlantManagers::find()->select(['plant_manager_id'])->where(['plant_id' => Yii::$app->user->identity->id])->asArray()->all();
+            $tempArray = array();
+            foreach ($rows as $key=>$value) {
+                echo $tempArray[$key] = $value['plant_id'];
+            }
+        
+            $query = Orders::find()->where(['plant_id' => $tempArray])->andWhere(['isAdminApproved'=>1]);
+        }*/
+
+        else   
         {
             $query = Orders::find();
         }

@@ -119,6 +119,22 @@ class OrdersController extends Controller
         $model = $this->findModel($id);
         // print_r($model);
         // exit;
+        if(Yii::$app->user->identity->user_level==4)
+        {
+            $model->isSIApproved = "1";   // Section Incharge Approved   
+        }
+        if(Yii::$app->user->identity->user_level==3)
+        {
+            $model->isPMApproved = "1";   // Project Manager Approved   
+        }
+        if(Yii::$app->user->identity->user_level==7)
+        {
+            $model->isPHApproved = "1";   // Project Head Approved   
+        }
+        if(Yii::$app->user->identity->user_level==2)
+        {
+            $model->isAdminApproved = "1";   // Master Approved   
+        }
         $modelConcreteTransaction = new ConcreteTransaction();
         $concreteData = $modelConcreteTransaction->find()->where([ 'order_id' => $id ])->one();
         $modelEquipmentTransaction = new EquipmentTransaction();
@@ -197,6 +213,21 @@ class OrdersController extends Controller
 			}
 		} else {
 			echo "<option value=''>No Sub Concrete found</option>";
+		}
+    }
+
+    public function actionSitelocation($id)
+    {
+        $posts = \common\models\Sites::find()
+				->where(['id' => $id])
+				->all();
+				
+		if (!empty($posts)) {
+			foreach($posts as $post) {
+				echo "<option value='".$post->id."'>".$post->location."</option>";
+			}
+		} else {
+			echo "<option>No Customer Id's found</option>";
 		}
     }
 

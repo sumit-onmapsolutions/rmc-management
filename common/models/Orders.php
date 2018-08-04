@@ -26,7 +26,8 @@ use Yii;
  * @property string $additional_if_any
  * @property int $status
  * @property string $reason
- * @property int $isSIApproved
+ * @property int $isSIApproved  
+ * @property int $isPHApproved
  * @property int $isPMApproved
  * @property int $isAdminApproved
  * @property string $mix_type
@@ -67,8 +68,8 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'customer_id', 'site_id', 'section_id', 'isPumping', 'isDumping', 'vehicle_interval', 'tentetive_time', 'confirmed_time', 'additional_if_any', 'status', 'reason', 'isSIApproved', 'isPMApproved', 'isAdminApproved', 'mix_type', 'mix_no', 'vehicle_no', 'name_of_driver', 'name_of_helper', 'plant_dispatch_time', 'slump_at_plant_mm', 'site_reach_time', 'slump_at_site_reach_time', 'any_admixture_addedatsite', 'any_water_added_at_site', 'after_addition_of_water', 'admixture_slumpmm', 'pour_start_time', 'pour_completed_time', 'plant_return_time'], 'required'],//, 'isdeleted', 'created_by', 'created_at', 'updated_at', 'updated_by','user_id', 
-            [['customer_id', 'project_manager_id', 'site_id', 'section_id', 'isPumping', 'isDumping', 'plant_id', 'status', 'isSIApproved', 'isPMApproved', 'isAdminApproved', 'isdeleted', 'created_by', 'updated_by','cid'], 'integer'],
+            [['date', 'customer_id', 'site_id', 'section_id', 'isPumping', 'isDumping', 'vehicle_interval', 'tentetive_time', 'confirmed_time', 'additional_if_any'], 'required'],//, 'status', 'reason', 'isSIApproved', 'isPMApproved', 'isAdminApproved', 'mix_type', 'mix_no', 'vehicle_no', 'name_of_driver', 'name_of_helper', 'plant_dispatch_time', 'slump_at_plant_mm', 'site_reach_time', 'slump_at_site_reach_time', 'any_admixture_addedatsite', 'any_water_added_at_site', 'after_addition_of_water', 'admixture_slumpmm', 'pour_start_time', 'pour_completed_time', 'plant_return_time', 'isdeleted', 'created_by', 'created_at', 'updated_at', 'updated_by','user_id', 
+            [['customer_id', 'project_manager_id', 'site_id', 'section_id', 'isPumping', 'isDumping', 'plant_id', 'status', 'isSIApproved', 'isPMApproved','isPHApproved','isAdminApproved', 'isdeleted', 'created_by', 'updated_by','cid'], 'integer'],
             [['date', 'created_at', 'updated_at'], 'safe'],
             [['reason','billing_address','gst_details','city','site_location'], 'string'],
             [['vehicle_interval', 'tentetive_time', 'confirmed_time', 'additional_if_any', 'mix_type', 'mix_no', 'vehicle_no', 'name_of_driver', 'name_of_helper', 'plant_dispatch_time', 'slump_at_plant_mm', 'site_reach_time', 'slump_at_site_reach_time', 'any_admixture_addedatsite', 'any_water_added_at_site', 'after_addition_of_water', 'admixture_slumpmm', 'pour_start_time', 'pour_completed_time', 'plant_return_time'], 'string', 'max' => 255],
@@ -104,6 +105,7 @@ class Orders extends \yii\db\ActiveRecord
             'reason' => 'Reason',
             'isSIApproved' => 'SI approved',
             'isPMApproved' => 'PM approved',
+            'isPHApproved' => 'PH approved',
             'isAdminApproved' => 'Admin Approved',
             'mix_type' => 'Mix Type',
             'mix_no' => 'Mix No',

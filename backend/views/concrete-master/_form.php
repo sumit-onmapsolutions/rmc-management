@@ -15,11 +15,12 @@ use yii\helpers\ArrayHelper;
 
     <?php // $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'is_parent')->dropDownList(
-        ArrayHelper::map(\common\models\ConcreteMaster::find()->where(['is_parent'=>0])->asArray()->all(), 'id', 'value'), 
-	['prompt'=>'Main Concrete']); ?>    
+        ['0' => 'Main Concrete'] + ArrayHelper::map(\common\models\ConcreteMaster::find()->where(['is_parent'=>0])->asArray()->all(), 'id', 'value'), 
+        ['prompt'=>'---Select Concrete----']); 
+    ?>
+    
+    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
 
     <?php // $form->field($model, 'is_deleted')->textInput() ?>
 

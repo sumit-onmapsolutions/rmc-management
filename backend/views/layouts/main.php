@@ -35,92 +35,19 @@ AppAsset::register($this);
 	    <div class="mother-grid-inner">
             <!--header start here-->
                 <div class="header-main">
-					<div class="header-left">
+					<div class="header-left" style="width:35%">
 							<div class="logo-name">
 								<a href="<?php echo Url::toRoute('site/index'); ?>"> 
-									<h1>J.Kumar RMC</h1> 
-									<!--<img id="logo" src="" alt="Logo"/>--> 
+									<!--<h1>J.Kumar RMC</h1> -->
+									<img id="logo" src="images/logo.jpg" alt="Logo" style="width:100px"/> 
 								</a> 								
 							</div>
-							<div class="clearfix"> </div>
-						 </div>
-						 <div class="header-right">
-						 <div class="profile_details_left"><!--notifications of menu start -->
-								<!-- <ul class="nofitications-dropdown">
-									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">1</span></a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="notification_header">
-													<h3>You have 1 new messages</h3>
-												</div>
-											</li>
-											<li><a href="#">
-											   <div class="user_img"><img src="images/p4.png" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor</p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											   <div class="clearfix"></div>	
-											</a></li>
-											<li>
-												<div class="notification_bottom">
-													<a href="#">See all messages</a>
-												</div> 
-											</li>
-										</ul>
-									</li>
-									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="notification_header">
-													<h3>You have 1 new notification</h3>
-												</div>
-											</li>
-											<li><a href="#">
-												<div class="user_img"><img src="images/p5.png" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor</p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											  <div class="clearfix"></div>	
-											 </a></li>
-											 <li>
-												<div class="notification_bottom">
-													<a href="#">See all notifications</a>
-												</div> 
-											</li>
-										</ul>
-									</li>	
-									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">1</span></a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="notification_header">
-													<h3>You have 1 pending task</h3>
-												</div>
-											</li>
-											<li><a href="#">
-												<div class="task-info">
-													<span class="task-desc">Database update</span><span class="percentage">40%</span>
-													<div class="clearfix"></div>	
-												</div>
-												<div class="progress progress-striped active">
-													<div class="bar yellow" style="width:40%;"></div>
-												</div>
-											</a></li>
-											<li>
-												<div class="notification_bottom">
-													<a href="#">See all pending tasks</a>
-												</div> 
-											</li>
-										</ul>
-									</li>	
-								</ul> -->
-								<div class="clearfix"> </div>
-							</div>
-							<!--notification menu end -->
+					 </div>
+					 <div class="col-md-3" >
+						<center><img id="logo" src="images/eagle.jpeg" alt="Logo" style="width:150px; height:150px; " /></center>							
+					</div>
+						 <div class="header-right" style="width:35%">
+						
 
 							<div class="profile_details">		
 								<ul>
@@ -160,7 +87,7 @@ AppAsset::register($this);
 				     <div class="clearfix"> </div>	
 				</div>
 			<!--heder end here-->
-            <div class="inner-block">
+            <div class="inner-block" style="margin-top: 100px;">
 			<?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
@@ -181,6 +108,7 @@ AppAsset::register($this);
 			      <!--<img id="logo" src="" alt="Logo"/>--> 
 			  </a> </div>		  
 		    <div class="menu">
+				<center><h3 style="color:white;">J.Kumar RMC, Pune</h3> </center>
 		      <ul id="menu" >
 				  <?php
 					 $menuList = Yii::$app->Permission->getMenus();

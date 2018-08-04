@@ -71,22 +71,37 @@ use yii\helpers\Url;
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'project_manager_id')->dropDownList(
-                ArrayHelper::map(\common\models\User::find()->where(['user_level'=>5])->asArray()->all(), 'id', 'username'),  
+                ArrayHelper::map(\common\models\User::find()->where(['user_level'=>3])->asArray()->all(), 'id', 'username'),  
             ['prompt'=>'Select Project Manager']); ?>
         </div>
     </div>
     
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'site_location')->textInput() ?>        
+            <?php
+                $dataCategory=ArrayHelper::map(\common\models\Sites::find()->asArray()->all(), 'id', 'name');    
+                echo $form->field($model, 'site_id')->dropDownList($dataCategory,
+                    [   'prompt'=>'-Select Site-',
+                    'onchange'=>'$.get( "'.Url::toRoute('orders/sitelocation').'", { id: $(this).val() } )
+                                .done(function( data )
+                                {
+                                    $( "select#Location" ).html( data );
+                                });
+                ']); 
+            ?>
         </div>
         <div class="col-md-6">
-            <?= 
-                $form->field($model, 'site_id')->dropDownList(
-                ArrayHelper::map(\common\models\Sites::find()->all(), 'id', 'name'),  
-                ['prompt'=>'Select Site']); 
-            ?>            
+            <?php    	
+                echo $form->field($model, 'site_location')
+                    ->dropDownList( $dataPost,           
+                        ['prompt'=>'-Select Site Location-',
+                        'id'=>'Location'
+                        ]
+                    );
+            ?>
+            
         </div>
+        
     </div>
 
     <div class="row">
@@ -177,6 +192,7 @@ use yii\helpers\Url;
             <?= $form->field($model, 'additional_if_any')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
+    <?php if(Yii::$app->user->identity->user_level==5) { ?>
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'status')->dropDownList(['1' => 'Yes', '0' => 'No'],['prompt'=>'Select Staus']); ?>
@@ -263,7 +279,7 @@ use yii\helpers\Url;
         </div>
     </div>
 
-
+    <?php } ?>    
     <?php // $form->field($model, 'isdeleted')->textInput() ?>
 
     <?php // $form->field($model, 'created_by')->textInput(['maxlength' => true]) ?>
@@ -275,7 +291,15 @@ use yii\helpers\Url;
     <?php // $form->field($model, 'updated_by')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php 
+            if(Yii::$app->user->identity->user_level==6) 
+            { ?>
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?php }
+            else { ?>
+                <?= Html::submitButton('Approve Order', ['class' => 'btn btn-success']) ?>  
+            <?php }
+            ?>
     </div>
 
     <?php ActiveForm::end(); ?>
