@@ -23,8 +23,21 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="login">
 <?php $this->beginBody() ?>
+
+<div class="logo">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <img id="logo" src="images/logo.jpg" alt="Logo" style="width:100px;"/>        
+            <img id="logo" src="images/logo.jpeg" alt="Logo" style="width:100px;"/>        
+        </div>
+    </div>
+
+</div>
+<div class="menu-toggler sidebar-toggler">
+</div>
+
         <div class="container-fluid">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

@@ -7,7 +7,8 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
+    'id' => 'jkumar-app',
+    'name' => 'Jkumar',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -54,6 +55,12 @@ return [
             ],
         ],
         */
+        'urlManagerFrontend'=>[
+            'enablePrettyUrl' => false,
+            'class' => 'yii\web\UrlManager',
+            'hostInfo' => 'http://localhost/jkumar-rmc/public_html/',
+            'baseUrl' => 'http://localhost/jkumar-rmc/public_html/',
+        ],
     ],
     'params' => $params,
 ];

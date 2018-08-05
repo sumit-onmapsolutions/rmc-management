@@ -47,7 +47,7 @@ class EquipmentTransaction extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'order_id' => 'Order ID',
-            'equipment_id' => 'Equipment ID',
+            'equipment_id' => 'Equipments',
             'quantity' => 'Quantity',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

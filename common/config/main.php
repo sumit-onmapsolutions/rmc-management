@@ -1,5 +1,7 @@
 <?php
 return [
+    'id' => 'jkumarrmc-app',
+    'name' => 'JKumar',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

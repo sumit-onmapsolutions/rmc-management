@@ -51,8 +51,8 @@ class ConcreteTransaction extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'order_id' => 'Order ID',
-            'parent_concrete_id' => 'Parent Concrete ID',
-            'sub_concrete_id' => 'Sub Concrete ID',
+            'parent_concrete_id' => 'Concrete',
+            'sub_concrete_id' => 'Sub-Concrete',
             'quantity' => 'Quantity',
             'unit' => 'Unit',
             'created_at' => 'Created At',
@@ -62,16 +62,4 @@ class ConcreteTransaction extends \yii\db\ActiveRecord
             'is_deleted' => 'Is Deleted',
         ];
     }
-
-    // public static function getConcreteName() {
-    //     // ...
-    //     return $this->hasOne(ConcreteMaster::className(),['id' => 'is_parent'])->select('value')->scalar();
-    // }
-
-    // public static function getSubConcreteName() {
-    //     // ...
-    //     return $this->hasOne(ConcreteMaster::className(),['id' => 'is_parent'])->select('value')->scalar();
-    // }
-
-    
 }

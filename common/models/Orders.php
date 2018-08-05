@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\models\ConcreteMaster;
+
 /**
  * This is the model class for table "orders".
  *
@@ -86,16 +86,16 @@ class Orders extends \yii\db\ActiveRecord
             'user_id' => 'Engineer',
             'date' => 'Date',
             'customer_id' => 'Customer Name',
-            'cid' => 'ID',
+            'cid' => 'Customer ID',
             'project_manager_id' => 'Project Manager',
             'billing_address' => 'Billing Address',
             'gst_details' => 'GST Details',
             'city' => 'City',
             'site_location' => 'Site Location',
             'site_id' => 'Site ID',
-            'section_id' => 'Section Name',
-            'isPumping' => 'Pumping',
-            'isDumping' => 'Dumping',
+            'section_id' => 'Section',
+            'isPumping' => 'Is Pumping Required ?',
+            'isDumping' => 'Is Dumping Required ?',
             'vehicle_interval' => 'Vehicle Interval',
             'tentetive_time' => 'Tentetive Time',
             'confirmed_time' => 'Confirmed Time',
@@ -109,14 +109,14 @@ class Orders extends \yii\db\ActiveRecord
             'isAdminApproved' => 'Admin Approved',
             'mix_type' => 'Mix Type',
             'mix_no' => 'Mix No',
-            'vehicle_no' => 'Vehicle No',
+            'vehicle_no' => 'Vehicle No.',
             'name_of_driver' => 'Name Of Driver',
             'name_of_helper' => 'Name Of Helper',
             'plant_dispatch_time' => 'Plant Dispatch Time',
             'slump_at_plant_mm' => 'Slump At Plant MM',
             'site_reach_time' => 'Site Reach Time',
             'slump_at_site_reach_time' => 'Slump At Site Reach Time',
-            'any_admixture_addedatsite' => 'Any Admixture Added at site',
+            'any_admixture_addedatsite' => 'Any Admixture Addedatsite',
             'any_water_added_at_site' => 'Any Water Added At Site',
             'after_addition_of_water' => 'After Addition Of Water',
             'admixture_slumpmm' => 'Admixture Slump MM',
@@ -159,26 +159,6 @@ class Orders extends \yii\db\ActiveRecord
     public function getCustomerid()
     {
         return $this->hasOne(CustomerIds::className(),['id' => 'cid'])->select('CID')->scalar();
-    }
-
-    public function getConcrete()
-    {
-        $parent_id = $this->hasOne(ConcreteTransaction::className(),['order_id' => 'id'])->select('parent_concrete_id')->scalar();
-        // echo $parent_id;
-        // exit;
-        $concreteMaster = new ConcreteMaster();
-        $concreteName =  $concreteMaster->find()->select('value')->where(['id' => $parent_id])->one();
-        return $concreteName;
-    }
-
-    public function getSubConcrete()
-    {
-        return $this->hasOne(ConcreteTransaction::className(),['id' => 'cid'])->select('CID')->scalar();
-    }
-
-    public function getConcreteQuantity()
-    {
-        return $this->hasOne(ConcreteTransaction::className(),['id' => 'cid'])->select('CID')->scalar();
     }
     
 }
